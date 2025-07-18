@@ -1,0 +1,215 @@
+# 1 - Load libraries required ----
+
+required_libraries <- c('dplyr', 'readxl', 'stringr', 'tidyr', 'readr', 'lubridate', 'ggplot2', 'openxlsx')
+
+for (i in required_libraries){
+  if( !is.element(i, .packages(all.available = TRUE)) ) {
+    install.packages(i)
+  }
+  library(i,character.only = TRUE)
+}
+
+# 2 - Read in Unavailability Monthly data and drop the columns not interested in ----
+
+unavailability <- read_excel("")
+
+# 3 - Filter out Scotland data and remove Available, Number on List and "(total)" rows ----
+
+unavailability_data <- unavailability %>% 
+  filter(`NHS Board` != 'Scotland',
+         `Indicator` != 'Number on list' & `Indicator` != 'Available' & `Indicator` != 'Unavailable for treatment',
+         !grepl("(total)", Indicator),
+         !grepl("Other", Indicator))
+
+# 4 - Add "NHS" to the board names ----
+
+unavailability_data <- unavailability_data %>% 
+  mutate(`NHS Board` = paste0("NHS ", `NHS Board`))
+
+unavailability <- unavailability %>% 
+  mutate(`NHS Board` = paste0("NHS ", `NHS Board`))
+
+# 5 - Change the date format to dd-mm-yyyy ----
+
+unavailability_data$`Month end` <- 
+  format(unavailability_data$`Month end`, "%d-%m-%Y")
+
+unavailability$`Month end` <- 
+  format(unavailability$`Month end`, "%d-%m-%Y")
+
+# 6 - Filter data to each NHS Board and current month ----
+
+unavailability_data_all <- unavailability_data %>% 
+  filter(`Specialty` == 'All AHP MSK Specialties')
+
+unavailability_data_breakdown <- unavailability_data %>% 
+  filter(`Specialty` != 'All AHP MSK Specialties',
+         `Month end` == '31-03-2025')
+
+unavailability_data_breakdown_per <- unavailability %>% 
+  filter(`NHS Board` != 'NHS Scotland' & 
+         `Indicator` == 'Unavailable for treatment' &
+         `Specialty` != 'All AHP MSK Specialties' & 
+         `Month end` == '31-03-2025')
+
+unavailability_data_phy <- unavailability_data_breakdown %>% 
+  filter(`Specialty` == 'Physiotherapy')
+
+unavailability_data_aa <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Ayrshire & Arran',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_borders <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Borders',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_dum <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Dumfries & Galloway',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_fife <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Fife',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_forth <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Forth Valley',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_gram <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Grampian',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_glas <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Greater Glasgow & Clyde',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_high <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Highland',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_lan <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Lanarkshire',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_loth <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Lothian',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_ork <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Orkney',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_shet <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Shetland',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_tay <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Tayside',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_data_wi <- unavailability_data %>% 
+  filter(`NHS Board` == 'NHS Western Isles',
+         `Month end` == '31-03-2025',
+         `Specialty` != 'All AHP MSK Specialties')
+
+# 7 - Percentage tables ----
+
+unavailability_data_breakdown_per_aa <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Ayrshire & Arran') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_bor <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Borders') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_dum <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Dumfries & Galloway') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_fife <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Fife') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_for <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Forth Valley') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_gram <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Grampian') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_ggc <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Greater Glasgow & Clyde') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_high <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Highland') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_lan <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Lanarkshire') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_loth <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Lothian') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_ork <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Orkney') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_shet <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Shetland') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_tay <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Tayside') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+unavailability_data_breakdown_per_wi <- unavailability_data_breakdown_per %>% 
+  filter(`NHS Board` == 'NHS Western Isles') %>% 
+  mutate(Percent = round(Value / sum(Value) * 100, 2)) %>% 
+  ungroup()
+
+# 8 - Trend Table ----
+
+unavailability_scot <- unavailability %>% 
+  filter(`NHS Board` == 'NHS Scotland',
+         `Indicator` == 'Unavailable for treatment',
+         `Specialty` != 'All AHP MSK Specialties')
+
+unavailability_scot <- unavailability_scot %>% 
+         mutate(month = month(`Month end`)) %>% 
+         filter(month %in% c(3, 6, 9, 12)) %>% 
+         select(-month, -Code)
+
+unavailability_scot$`Month end` <- dmy(unavailability_scot$`Month end`)
+
+unavailability_scot <- unavailability_scot %>% 
+  arrange(`Month end`)
