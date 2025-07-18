@@ -1,0 +1,41 @@
+# 1 - Load libraries required ----
+
+required_libraries <- c('dplyr', 'readxl', 'stringr', 'tidyr', 'readr', 'lubridate', 'ggplot2', 'openxlsx', 'viridis')
+
+for (i in required_libraries){
+  if( !is.element(i, .packages(all.available = TRUE)) ) {
+    install.packages(i)
+  }
+  library(i,character.only = TRUE)
+}  
+
+# 2 - Create Physiotherapy Chart ----
+
+physio_chart <- ggplot(data = unavailability_data_phy,
+                     aes(x = `Value`)) +
+  geom_bar(aes(y= `NHS Board`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("NHS Board") +
+  xlab("No. Unavailable") +
+  scale_y_discrete(limits=rev) +
+  ggtitle("Physiotherapy Code Breakdown") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_x_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+physio_chart
+
+ggsave(physio_chart,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
