@@ -1,0 +1,432 @@
+# 1 - Load libraries required ----
+
+required_libraries <- c('dplyr', 'readxl', 'stringr', 'tidyr', 'readr', 'lubridate', 'ggplot2', 'openxlsx', 'viridis')
+
+for (i in required_libraries){
+  if( !is.element(i, .packages(all.available = TRUE)) ) {
+    install.packages(i)
+  }
+  library(i,character.only = TRUE)
+}  
+
+# 2 - Create charts ----
+
+## Ayrshire & Arran -----
+
+Fig_1_aa <- ggplot(data = unavailability_data_aa,
+                   aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Ayrshire & Arran") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_aa
+
+ggsave(Fig_1_aa,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Borders -----
+
+Fig_1_borders <- ggplot(data = unavailability_data_borders,
+                        aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Borders") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_borders
+
+ggsave(Fig_1_borders,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Dumfries & Galloway -----
+
+Fig_1_dum <- ggplot(data = unavailability_data_dum,
+                    aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Dumfries & Galloway") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_dum
+
+ggsave(Fig_1_dum,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Fife -----
+
+Fig_1_fife <- ggplot(data = unavailability_data_fife,
+                     aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Fife") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_fife
+
+ggsave(Fig_1_fife,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Forth Valley -----
+
+Fig_1_forth <- ggplot(data = unavailability_data_forth,
+                      aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Forth Valley") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_forth
+
+ggsave(Fig_1_forth,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Greater Glasgow & Clyde -----
+
+Fig_1_glas <- ggplot(data = unavailability_data_glas,
+                     aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Greater Glasgow & Clyde") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_glas
+
+ggsave(Fig_1_glas,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Grampian -----
+
+Fig_1_gram <- ggplot(data = unavailability_data_gram,
+                     aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Grampian") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_gram
+
+ggsave(Fig_1_gram,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Highlands -----
+
+Fig_1_high <- ggplot(data = unavailability_data_high,
+                     aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Highlands") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_high
+
+ggsave(Fig_1_high,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Lanarkshire -----
+
+Fig_1_lan <- ggplot(data = unavailability_data_lan,
+                    aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Lanarkshire") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_lan
+
+ggsave(Fig_1_lan,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Lothian -----
+
+Fig_1_loth <- ggplot(data = unavailability_data_loth,
+                     aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Lothian") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_loth
+
+ggsave(Fig_1_loth,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Orkney -----
+
+Fig_1_ork <- ggplot(data = unavailability_data_ork,
+                    aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Orkney") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_ork
+
+ggsave(Fig_1_ork,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Shetland -----
+
+Fig_1_shet <- ggplot(data = unavailability_data_shet,
+                     aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Shetland") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_shet
+
+ggsave(Fig_1_shet,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Tayside -----
+
+Fig_1_tay <- ggplot(data = unavailability_data_tay,
+                    aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Tayside") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_tay
+
+ggsave(Fig_1_tay,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Western Isles -----
+
+Fig_1_wi <- ggplot(data = unavailability_data_wi,
+                   aes(x = `Specialty`)) +
+  geom_bar(aes(y= `Value`, fill = `Code`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_viridis_d(option = "turbo") +
+  ylab("No. Unavailable") +
+  xlab("Specialty") +
+  ggtitle("NHS Western Isles") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20")) +
+  scale_y_continuous (expand = c(0,0),
+                      labels=function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme(legend.text = element_text(size = 8), legend.box = "horizontal") +
+  guides(fill = guide_legend(ncol = 5))
+
+Fig_1_wi
+
+ggsave(Fig_1_wi,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
