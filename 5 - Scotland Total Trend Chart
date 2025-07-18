@@ -1,0 +1,44 @@
+# 1 - Load libraries required ----
+
+required_libraries <- c('dplyr', 'readxl', 'stringr', 'tidyr', 'readr', 'lubridate', 'ggplot2', 'openxlsx', 'viridis')
+
+for (i in required_libraries){
+  if( !is.element(i, .packages(all.available = TRUE)) ) {
+    install.packages(i)
+  }
+  library(i,character.only = TRUE)
+}  
+
+# 2 - Create Trend Chart ----
+
+breaks_seq <- seq(from = as.Date("2019-03-31"),
+                  to = max(unavailability_scot$`Month end`),
+                  by = "3 months")
+
+unavailability_scot$Specialty <- factor(unavailability_scot$Specialty, levels = c("Occupational Therapy", "Orthotics", "Podiatry", "Physiotherapy"))
+
+trend_chart <- ggplot(data = unavailability_scot,
+                     aes(x = `Month end`)) +
+  geom_bar(aes(y= `Value`, fill = `Specialty`), stat = 'identity') +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12),axis.text.x = element_text(size = 10, angle = 45, hjust = 1)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  ylab("No. Unavailable") +
+  xlab("Month") +
+  ggtitle("Scotland Unavailability Total") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(size = 12, colour = "grey20"),
+        axis.title.y = element_text(size = 12, colour = "grey20"))+
+  scale_y_continuous(expand = c(0,0)) +
+  scale_x_date(breaks = breaks_seq, date_labels = "%b %y", expand = c(0,0))
+
+trend_chart
+
+ggsave(trend_chart,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
