@@ -1,0 +1,362 @@
+# 1 - Load libraries required ----
+
+required_libraries <- c('dplyr', 'readxl', 'stringr', 'tidyr', 'readr', 'lubridate', 'ggplot2', 'openxlsx', 'viridis')
+
+for (i in required_libraries){
+  if( !is.element(i, .packages(all.available = TRUE)) ) {
+    install.packages(i)
+  }
+  library(i,character.only = TRUE)
+}  
+
+# 2 - Create % Breakdown Charts ----
+## Ayrshire & Arran -----
+
+Fig_1_aa_per <- ggplot(data = unavailability_data_breakdown_per_aa,
+                aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = "NHS Ayrshire & Arran (%)") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_aa_per
+
+ggsave(Fig_1_aa_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+
+## Borders -----
+
+Fig_1_bor_per <- ggplot(data = unavailability_data_breakdown_per_bor,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Borders (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_bor_per
+
+ggsave(Fig_1_bor_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Dumfries & Galloway -----
+
+Fig_1_dum_per <- ggplot(data = unavailability_data_breakdown_per_dum,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Dumfries & Galloway (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_dum_per
+
+ggsave(Fig_1_dum_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Fife -----
+
+Fig_1_fife_per <- ggplot(data = unavailability_data_breakdown_per_fife,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Fife (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_fife_per
+
+ggsave(Fig_1_fife_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Forth Valley -----
+
+Fig_1_for_per <- ggplot(data = unavailability_data_breakdown_per_for,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Forth Valley (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_for_per
+
+ggsave(Fig_1_for_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Greater Glasgow & Clyde -----
+
+Fig_1_ggc_per <- ggplot(data = unavailability_data_breakdown_per_ggc,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Greater Glasgow & Clyde (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_ggc_per
+
+ggsave(Fig_1_ggc_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Grampian -----
+
+Fig_1_gram_per <- ggplot(data = unavailability_data_breakdown_per_gram,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Grampian (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_gram_per
+
+ggsave(Fig_1_gram_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Highlands -----
+
+Fig_1_high_per <- ggplot(data = unavailability_data_breakdown_per_high,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Highlands (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_high_per
+
+ggsave(Fig_1_high_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Lanarkshire -----
+
+Fig_1_lan_per <- ggplot(data = unavailability_data_breakdown_per_lan,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Lanarkshire (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_lan_per
+
+ggsave(Fig_1_lan_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Lothian -----
+
+Fig_1_loth_per <- ggplot(data = unavailability_data_breakdown_per_loth,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Lothian (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_loth_per
+
+ggsave(Fig_1_loth_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Orkney -----
+
+Fig_1_ork_per <- ggplot(data = unavailability_data_breakdown_per_ork,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Orkney (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_ork_per
+
+ggsave(Fig_1_ork_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Shetland -----
+
+Fig_1_shet_per <- ggplot(data = unavailability_data_breakdown_per_shet,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Shetland (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_shet_per
+
+ggsave(Fig_1_shet_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Tayside -----
+
+Fig_1_tay_per <- ggplot(data = unavailability_data_breakdown_per_tay,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Tayside (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_tay_per
+
+ggsave(Fig_1_tay_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
+
+## Western Isles -----
+
+Fig_1_wi_per <- ggplot(data = unavailability_data_breakdown_per_wi,
+                       aes(y= `Percent`, x = Specialty, fill = Specialty)) +
+  geom_col() +
+  theme_classic() +
+  theme(legend.text = element_text(size = 12)) +
+  theme(legend.position="bottom") +
+  theme(legend.title=element_blank()) +
+  theme(legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(axis.text=element_text(size=12),axis.title=element_text(size=12)) +
+  scale_fill_manual(values = c("Occupational Therapy" = "#3F3685", "Orthotics" = "#9B4393", "Physiotherapy" = "#0078D4", "Podiatry" = "#83BB26")) +
+  labs(x = "Specialty", y = "(%)", title = ("NHS Western Isles (%)")) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.title.x = element_text(colour = "grey20", size = 12),
+        axis.title.y = element_text(colour = "grey20", size = 12)) +
+  scale_y_continuous (expand = c(0,0))
+
+Fig_1_wi_per
+
+ggsave(Fig_1_wi_per,
+       filename=paste0(""),
+       width=27, height=13.5, units='cm')
